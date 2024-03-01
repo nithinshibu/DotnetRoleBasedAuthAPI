@@ -1,2 +1,14 @@
 ﻿Thanks to Dev Empower: https://www.youtube.com/watch?v=KRVjIgr-WOU
 
+Nuget Packages:-
+
+Microsoft.AspNetCore.Authentication.JwtBearer
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+
+
+Commands used:
+
+add-migration <migration-name>
+update-database
