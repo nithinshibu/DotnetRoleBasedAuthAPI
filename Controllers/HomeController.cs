@@ -1,3 +1,5 @@
+using DotnetRoleBasedAuthAPI.Core.OtherObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetRoleBasedAuthAPI.Controllers
@@ -15,6 +17,28 @@ namespace DotnetRoleBasedAuthAPI.Controllers
         [HttpGet]
         [Route("Get")]
         public IActionResult Get()
+        {
+            return Ok(Summaries);
+        }
+        [HttpGet]
+        [Route("GetUsersRole")]
+        [Authorize(Roles = StaticUserRoles.USER)]
+        public IActionResult GetUsersRole()
+        {
+            return Ok(Summaries);
+        }
+
+        [HttpGet]
+        [Route("GetAdminRole")]
+        [Authorize(Roles = StaticUserRoles.ADMIN)]
+        public IActionResult GetAdminRole()
+        {
+            return Ok(Summaries);
+        }
+        [HttpGet]
+        [Route("GetOwnerRole")]
+        [Authorize(Roles = StaticUserRoles.OWNER)]
+        public IActionResult GetOwnerRole()
         {
             return Ok(Summaries);
         }

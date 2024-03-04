@@ -133,6 +133,42 @@ namespace DotnetRoleBasedAuthAPI.Controllers
             return token;
 
         }
+
+        //Route for making the user as an admin
+        [HttpPost]
+        [Route("make-admin")]
+
+        public async Task<IActionResult> MakeAdmin([FromBody]UpdatePermissionDTO updatePermissionDTO)
+        {
+            var user = await _userManager.FindByNameAsync(updatePermissionDTO.UserName);
+            if (user is null)
+            {
+                return BadRequest("Invalid User Name !!!");
+            }
+
+            await _userManager.AddToRoleAsync(user, StaticUserRoles.ADMIN);
+
+            return Ok("User is now an ADMIN");
+        }
+
+
+        //Route for making the user as an owner
+        [HttpPost]
+        [Route("make-owner")]
+
+        public async Task<IActionResult> MakeOwner([FromBody] UpdatePermissionDTO updatePermissionDTO)
+        {
+            var user = await _userManager.FindByNameAsync(updatePermissionDTO.UserName);
+            if (user is null)
+            {
+                return BadRequest("Invalid User Name !!!");
+            }
+
+            await _userManager.AddToRoleAsync(user, StaticUserRoles.OWNER);
+
+            return Ok("User is now an OWNER");
+        }
+
     }
 }
 
