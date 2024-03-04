@@ -1,5 +1,7 @@
 using DotnetRoleBasedAuthAPI.Core.DbContext;
 using DotnetRoleBasedAuthAPI.Core.Entities;
+using DotnetRoleBasedAuthAPI.Core.Interfaces;
+using DotnetRoleBasedAuthAPI.Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +93,9 @@ builder.Services
         };
     });
 
+//Inject App Dependencies
+
+builder.Services.AddScoped<IAuthService,AuthService>();
 
 
 //pipeline
