@@ -12,3 +12,5 @@ Commands used:
 
 add-migration <migration-name>
 update-database
+
+https://youtu.be/KRVjIgr-WOU?si=7wFEwXsPu6EAagkC&t=3293
