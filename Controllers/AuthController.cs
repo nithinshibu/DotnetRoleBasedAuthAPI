@@ -1,4 +1,5 @@
 ﻿using DotnetRoleBasedAuthAPI.Core.DTOs;
+using DotnetRoleBasedAuthAPI.Core.Entities;
 using DotnetRoleBasedAuthAPI.Core.OtherObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,11 @@ namespace DotnetRoleBasedAuthAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -57,11 +58,13 @@ namespace DotnetRoleBasedAuthAPI.Controllers
             {
                 return BadRequest("Username already exists");
             }
-            IdentityUser newUser = new IdentityUser()
+            ApplicationUser newUser = new ApplicationUser()
             {
                 Email = registerDTO.Email,
                 UserName = registerDTO.UserName,
                 SecurityStamp = Guid.NewGuid().ToString(),
+                FirstName=registerDTO.FirstName,
+                LastName=registerDTO.LastName
             };
 
             //Creating the new user
@@ -110,6 +113,8 @@ namespace DotnetRoleBasedAuthAPI.Controllers
                  new Claim(ClaimTypes.Name,user.UserName),
                  new Claim(ClaimTypes.NameIdentifier,user.Id),
                  new Claim("JWTID",Guid.NewGuid().ToString() ),
+                 new Claim("FirstName", user.FirstName),
+                 new Claim("LastName", user.LastName)
             };
 
             foreach(var userRole in userRoles)
